@@ -2,6 +2,8 @@ import "reflect-metadata";
 import express from "express";
 import { routes } from "./routes";
 import * as dotenv from 'dotenv';
+import { AppDataSource } from "./database/index";
+import "./database";
 
 dotenv.config();
 
@@ -11,4 +13,6 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(3000, () => console.log("Server is running"));
+AppDataSource.initialize().then(async () => {
+    app.listen(3000, () => console.log("Server is running"));
+}).catch(error => console.log(error))
