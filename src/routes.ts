@@ -2,7 +2,8 @@ import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { SessionController } from "./controllers/SessionController";
 import { PermissionController } from "./controllers/PermissionController";
-import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { RoleController } from "./controllers/RoleController";
+import { isAuthenticated, is } from "./middlewares/index";
 
 
 const routes = Router();
@@ -14,7 +15,14 @@ routes.post("/login", new SessionController().create);
 routes.post(
     "/permissions",
     isAuthenticated(),
-    new PermissionController().handle
+    new PermissionController().create
+);
+
+routes.post(
+    "/roles",
+    isAuthenticated(),
+    is(["admin"]),
+    new RoleController().create
 );
   
 export { routes };
