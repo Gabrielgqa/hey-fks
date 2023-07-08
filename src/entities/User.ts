@@ -13,7 +13,7 @@ import {
   @Entity("users")
   export class User extends BaseEntity {
     @Column()
-    username: string;
+    email: string;
   
     @Column()
     password: string;
