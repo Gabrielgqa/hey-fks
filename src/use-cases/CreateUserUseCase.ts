@@ -9,7 +9,7 @@ type UserRequest = {
 
 export class CreateUserUseCase{
   async execute({ password, email }: UserRequest): Promise<Error | User> {
-    const existUser = await UserRepository.findBy({ email });
+    const existUser = await UserRepository.findOneBy({ email });
 
     if (existUser) {
       return new Error("User already exists");
